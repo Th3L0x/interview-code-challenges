@@ -5,8 +5,11 @@ namespace OneBeyondApi.DataAccess
 {
     public class CatalogueRepository : ICatalogueRepository
     {
-        public CatalogueRepository()
+        private readonly ILogger<CatalogueRepository> _logger;
+
+        public CatalogueRepository(ILogger<CatalogueRepository> logger)
         {
+            _logger = logger;
         }
 
         public List<BookStock> GetCatalogue()
@@ -37,6 +40,31 @@ namespace OneBeyondApi.DataAccess
                     })
                     .ToList();
                 return result;
+            }
+        }
+
+        public bool ReturnBook(ReturnBookParameter returnBookParameter)
+        {
+            try
+            {
+                using (var context = new LibraryContext())
+                {
+                    var bookStock = context.Catalogue
+                        .Include(x => x.Book)
+                        .Include(x => x.OnLoanTo)
+                        .Where(x => x.OnLoanTo != null && x.LoanEndDate != null)
+                        .FirstOrDefault(x => x.Book.Id == returnBookParameter.BookId && x.OnLoanTo!.Id == returnBookParameter.BorrowerId) 
+                        ?? throw new NullReferenceException($"Could not find loan with book id: {returnBookParameter.BorrowerId} and with borrower id {returnBookParameter.BorrowerId}");
+                    bookStock.OnLoanTo = null;
+                    bookStock.LoanEndDate = null;
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return false;
             }
         }
 

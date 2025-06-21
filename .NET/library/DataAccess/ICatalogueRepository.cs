@@ -8,6 +8,8 @@ namespace OneBeyondApi.DataAccess
 
         List<BorrowerOnLoan> GetBorrowersOnActiveLoans();
 
+        bool ReturnBook(ReturnBookParameter returnBookParameter);
+
         public List<BookStock> SearchCatalogue(CatalogueSearch search);
     }
 }

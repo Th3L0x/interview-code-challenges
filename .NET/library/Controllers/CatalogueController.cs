@@ -33,6 +33,13 @@ namespace OneBeyondApi.Controllers
         }
 
         [HttpPost]
+        [Route("OnLoan")]
+        public bool ReturnBook(ReturnBookParameter returnBookParameter)
+        {
+            return _catalogueRepository.ReturnBook(returnBookParameter);
+        }
+
+        [HttpPost]
         [Route("SearchCatalogue")]
         public IList<BookStock> Post(CatalogueSearch search)
         {
