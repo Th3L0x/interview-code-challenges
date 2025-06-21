@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using OneBeyondApi.DataAccess;
 using OneBeyondApi.Model;
-using System.Collections;
 
 namespace OneBeyondApi.Controllers
 {
@@ -15,7 +14,7 @@ namespace OneBeyondApi.Controllers
         public BorrowerController(ILogger<BorrowerController> logger, IBorrowerRepository borrowerRepository)
         {
             _logger = logger;
-            _borrowerRepository = borrowerRepository;   
+            _borrowerRepository = borrowerRepository;
         }
 
         [HttpGet]

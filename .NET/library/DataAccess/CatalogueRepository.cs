@@ -8,6 +8,7 @@ namespace OneBeyondApi.DataAccess
         public CatalogueRepository()
         {
         }
+
         public List<BookStock> GetCatalogue()
         {
             using (var context = new LibraryContext())
@@ -18,6 +19,24 @@ namespace OneBeyondApi.DataAccess
                     .Include(x => x.OnLoanTo)
                     .ToList();
                 return list;
+            }
+        }
+
+        public List<BorrowerOnLoan> GetBorrowersOnActiveLoans()
+        {
+            using (var context = new LibraryContext())
+            {
+                var result = context.Catalogue
+                    .Include(x => x.Book)
+                    .Include(x => x.OnLoanTo)
+                    .Where(x => x.OnLoanTo != null && x.LoanEndDate != null)
+                    .Select(x => new BorrowerOnLoan()
+                    {
+                        BookTitle = x.Book.Name,
+                        OnLoanTo = x.OnLoanTo,
+                    })
+                    .ToList();
+                return result;
             }
         }
 

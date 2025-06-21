@@ -1,4 +1,6 @@
-﻿namespace OneBeyondApi.Model
+﻿using System.Linq.Expressions;
+
+namespace OneBeyondApi.Model
 {
     public class BookStock
     {
@@ -6,5 +8,14 @@
         public Book Book { get; set; }
         public DateTime? LoanEndDate { get; set; }
         public Borrower? OnLoanTo { get; set; }
+
+        public Expression<Func<BookStock, BorrowerOnLoan>> EntityToDTO()
+        {
+            return (x) => new BorrowerOnLoan()
+            {
+                BookTitle = this.Book.Name,
+                OnLoanTo = this.OnLoanTo,
+            };
+        }
     }
 }

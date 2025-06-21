@@ -7,6 +7,7 @@ namespace OneBeyondApi.DataAccess
         public BookRepository()
         {
         }
+
         public List<Book> GetBooks()
         {
             using (var context = new LibraryContext())
