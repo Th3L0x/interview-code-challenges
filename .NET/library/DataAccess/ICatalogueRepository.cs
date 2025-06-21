@@ -10,6 +10,8 @@ namespace OneBeyondApi.DataAccess
 
         bool ReturnBook(ReturnBookParameter returnBookParameter);
 
+        List<BorrowerFine> GetFines();
+
         public List<BookStock> SearchCatalogue(CatalogueSearch search);
     }
 }

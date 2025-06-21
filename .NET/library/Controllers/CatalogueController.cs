@@ -26,6 +26,13 @@ namespace OneBeyondApi.Controllers
         }
 
         [HttpGet]
+        [Route("GetFines")]
+        public IList<BorrowerFine> GetFines()
+        {
+            return _catalogueRepository.GetFines();
+        }
+
+        [HttpGet]
         [Route("OnLoan")]
         public IList<BorrowerOnLoan> OnLoan()
         {
