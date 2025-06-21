@@ -6,9 +6,13 @@ namespace OneBeyondApi.DataAccess
     {
         public List<BookStock> GetCatalogue();
 
-        List<BorrowerOnLoan> GetBorrowersOnActiveLoans();
+        List<BorrowerOnLoan> GetBorrowersWithActiveLoans();
 
         bool ReturnBook(ReturnBookParameter returnBookParameter);
+
+        bool ReserveBook(ReserveBookParameter reserveBookParameter);
+
+        string GetBookAvaibality(Guid bookId);
 
         List<BorrowerFine> GetFines();
 

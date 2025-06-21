@@ -6,6 +6,8 @@ namespace OneBeyondApi.DataAccess
     {
         public List<Borrower> GetBorrowers();
 
+        Borrower? GetBorrowerByEmail(string email);
+
         public Guid AddBorrower(Borrower borrower);
     }
 }

@@ -36,7 +36,7 @@ namespace OneBeyondApi.Controllers
         [Route("OnLoan")]
         public IList<BorrowerOnLoan> OnLoan()
         {
-            return _catalogueRepository.GetBorrowersOnActiveLoans();
+            return _catalogueRepository.GetBorrowersWithActiveLoans();
         }
 
         [HttpPost]
@@ -44,6 +44,20 @@ namespace OneBeyondApi.Controllers
         public bool ReturnBook(ReturnBookParameter returnBookParameter)
         {
             return _catalogueRepository.ReturnBook(returnBookParameter);
+        }
+
+        [HttpPost]
+        [Route("ReserveBook")]
+        public bool ReserveBook(ReserveBookParameter reserveBookParameter)
+        {
+            return _catalogueRepository.ReserveBook(reserveBookParameter);
+        }
+
+        [HttpGet]
+        [Route("GetBookAvaibality")]
+        public string GetBookAvaibality(Guid bookId)
+        {
+            return _catalogueRepository.GetBookAvaibality(bookId);
         }
 
         [HttpPost]

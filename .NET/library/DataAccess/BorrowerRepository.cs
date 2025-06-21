@@ -1,4 +1,5 @@
-﻿using OneBeyondApi.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using OneBeyondApi.Model;
 
 namespace OneBeyondApi.DataAccess
 {
@@ -15,6 +16,17 @@ namespace OneBeyondApi.DataAccess
                 var list = context.Borrowers
                     .ToList();
                 return list;
+            }
+        }
+
+        public Borrower? GetBorrowerByEmail(string email)
+        {
+            using (var context = new LibraryContext())
+            {
+                var borrower = context.Borrowers
+                    .AsNoTracking()
+                   .FirstOrDefault(x => x.EmailAddress == email);
+                return borrower;
             }
         }
 
